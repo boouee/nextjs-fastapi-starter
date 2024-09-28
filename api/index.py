@@ -42,14 +42,14 @@ async def task(request):
         print(result)
 
 @app.get('/api/users')
-async def f():
+async def users():
     start = time()
     output = await task(get_users)
     print("time: ", time() - start)
     return output
 
 @app.get('/api/check')
-async def f():
+async def check():
     start = time()
     return 'check'
     output = await task(check_lead)
