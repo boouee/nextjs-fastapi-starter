@@ -47,10 +47,12 @@ async def task(request):
 async def users(lead: str | None = None):
     start = time()
     return lead
-    #function = get_users if lead else check_lead
-    #output = await task(function(lead))
-    #print("time: ", time() - start)
-    #return output
+    if lead == null:
+      output = await task(get_users())
+    else:
+      output = await task(check_lead(lead))
+    print("time: ", time() - start)
+    return output
 
 @app.post('/api')
 async def f(request: Request):
