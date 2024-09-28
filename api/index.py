@@ -18,7 +18,7 @@ headers = {
   'Authorization': bearer
 }
 # main.py
-
+"""
 async def get_body(request: Request):
     return await request.json()
 
@@ -40,11 +40,11 @@ async def task(request):
         result = await asyncio.gather(*tasks)
         return result
         print(result)
-
+"""
 #fn: str, name: str | None = None
 
 @app.get('/api/{fn}')
-async def users():
+async def users(fn):
     start = time()
     return fn
     #function = get_users if fn == 'users' else check_lead
