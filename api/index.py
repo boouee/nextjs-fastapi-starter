@@ -51,6 +51,7 @@ async def f():
 @app.get('/api/check')
 async def f():
     start = time()
+    return 'check'
     output = await task(check_lead)
     print("time: ", time() - start)
     return output
