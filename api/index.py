@@ -44,9 +44,9 @@ async def task(request):
 #fn: str, name: str | None = None
 
 @app.get('/api')
-async def users(lead: str):
+async def users(lead: str | None = None):
     start = time()
-    return "lead"
+    return lead
     #function = get_users if lead else check_lead
     #output = await task(function(lead))
     #print("time: ", time() - start)
