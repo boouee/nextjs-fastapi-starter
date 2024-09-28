@@ -41,14 +41,16 @@ async def task(request):
         return result
         print(result)
 
+#fn: str, name: str | None = None
+
 @app.get('/api/{fn}')
-async def users(fn: str, name: str | None = None):
+async def users():
     start = time()
     return fn
-    function = get_users if fn == 'users' else check_lead
-    output = await task(function(name))
-    print("time: ", time() - start)
-    return output
+    #function = get_users if fn == 'users' else check_lead
+    #output = await task(function(name))
+    #print("time: ", time() - start)
+    #return output
 
 @app.post('/api')
 async def f(request: Request):
