@@ -25,11 +25,12 @@ async def task():
     async with httpx.AsyncClient() as client:
         tasks = [request(client) for i in range(100)]
         result = await asyncio.gather(*tasks)
+        return result
         print(result)
 
 @app.get('/api')
 async def f():
     start = time()
-    out put = await task()
+    output = await task()
     print("time: ", time() - start)
     return output
