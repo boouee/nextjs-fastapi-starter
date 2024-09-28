@@ -29,7 +29,7 @@ class Lead(BaseModel):
     link: str
     seller: str | None = None
     pipeline: int
-    
+
 async def get_body(request: Request):
     return await request.json()
 
@@ -68,13 +68,13 @@ async def task(data, lead):
 async def users(lead: str | None = None):
     start = time()
     #return lea
-    output = await task(data = null, lead)
+    output = await task(None, lead)
     print("time: ", time() - start)
     return output
 
 @app.post('/api')
 async def f(lead: Lead):
     start = time()
-    output = await task()
+    output = await task(lead, None)
     print("time: ", time() - start)
     return output
