@@ -28,8 +28,8 @@ class Lead(BaseModel):
     phone: int | None = None
     link: str
     seller: str | None = None
+    pipeline: int
     
-
 async def get_body(request: Request):
     return await request.json()
 
@@ -43,8 +43,11 @@ async def check_lead(client, name):
 
 async def post_lead(client, data):
     data = {
-       '': 'My App v1.0',
-       'Authorization': bearer
+       'name': data.name,
+       'price': data.price,
+       'responsible_user_id': data.user_id,
+       'pipeline_id': data.pipeline,
+       'custom_fields_values': [ {'field_id': , 'values': [{'value': data.link}]},{'field_id': , 'values': [{'value': data.address}]},{'field_id': , 'values': [{'value': data.phone}]}, {'field_id': , 'values': [{'value': data.seller}]}, {'field_id': , 'values': [{'value': data.}]}]
     }
     response = await client.post(url + 'leads', headers=headers, data=data)
     return response.text
