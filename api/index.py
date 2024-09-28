@@ -3,6 +3,7 @@ from pydantic import BaseModel
 from time import time
 import httpx
 import asyncio
+import json
 from urllib.parse import parse_qs
 
 app = FastAPI()
@@ -19,7 +20,7 @@ headers = {
   'Authorization': bearer
 }
 # main.py
-
+# admin 11282258
 class Lead(BaseModel):
     name: str
     user_id: int
@@ -45,13 +46,14 @@ async def post_lead(client, data):
     data = {
        'name': data.name,
        'price': data.price,
-       'responsible_user_id': data.user_id ,
-       'pipeline_id': 11282258,
+       'responsible_user_id': data.user_id,
+       'pipeline_id': 8412118,
        'custom_fields_values': [ {'field_id': 838641, 'values': [{'value': data.link}]},{'field_id': 923969, 'values': [{'value': data.price * 0.03}]}]
        #'custom_fields_values': [ {'field_id': 838641, 'values': [{'value': data.link | ''}]},{'field_id': 923963, 'values': [{'value': data.address| ''}]},{'field_id': 923967, 'values': [{'value': data.phone| ''}]}, {'field_id': 923965, 'values': [{'value': data.seller| ''}]}, {'field_id': 923969, 'values': [{'value': data.price * 0.03}]}]
-    
+
     }
-    response = await client.post(url + 'leads', headers=headers, data=data.data)
+    data = "[" + json.dumps(data) + "]"
+    response = await client.post(url + 'leads', headers=headers, data=data)
     return response.text
 
 async def task(data, lead):
