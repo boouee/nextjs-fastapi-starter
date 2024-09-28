@@ -38,7 +38,21 @@ async def task():
         return result
         print(result)
 
-@app.get('/api')
+@app.get('/api/users')
+async def f():
+    start = time()
+    output = await task()
+    print("time: ", time() - start)
+    return output
+
+@app.get('/api/check')
+async def f():
+    start = time()
+    output = await task()
+    print("time: ", time() - start)
+    return output
+
+@app.post('/api')
 async def f():
     start = time()
     output = await task()
