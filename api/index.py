@@ -46,7 +46,7 @@ async def task(request):
 @app.get('/api')
 async def users(lead: str | None = None):
     start = time()
-    return lead
+    #return lead
     if lead == null:
       output = await task(get_users())
     else:
