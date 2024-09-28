@@ -1,4 +1,5 @@
 from fastapi import FastAPI, Request
+from pydantic import BaseModel
 from time import time
 import httpx
 import asyncio
@@ -19,6 +20,16 @@ headers = {
 }
 # main.py
 
+class Lead(BaseModel):
+    name: str
+    user_id: int
+    address: str | None = None
+    price: int
+    phone: int | None = None
+    link: str
+    seller: str | None = None
+    
+
 async def get_body(request: Request):
     return await request.json()
 
@@ -31,12 +42,19 @@ async def check_lead(client, name):
     return response.text
 
 async def post_lead(client, data):
+    data = {
+       '': 'My App v1.0',
+       'Authorization': bearer
+    }
     response = await client.post(url + 'leads', headers=headers, data=data)
     return response.text
 
-async def task(lead):
+async def task(data, lead):
     async with httpx.AsyncClient() as client:
-        tasks = [check_lead(client, lead) for i in range(2)] if lead else [get_users(client) for i in range(2)]
+        if data:
+           tasks = [post_lead(client, data) for i in range(1)]
+        else:   
+           tasks = [check_lead(client, lead) for i in range(1)] if lead else [get_users(client) for i in range(1)]
         result = await asyncio.gather(*tasks)
         return result
         print(result)
@@ -47,13 +65,13 @@ async def task(lead):
 async def users(lead: str | None = None):
     start = time()
     #return lea
-    output = await task(lead)
+    output = await task(null, lead)
     print("time: ", time() - start)
     return output
 
 @app.post('/api')
-async def f(request: Request):
+async def f(lead: Lead):
     start = time()
-    output = await task(post_lead)
+    output = await task()
     print("time: ", time() - start)
     return output
