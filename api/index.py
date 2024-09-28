@@ -68,7 +68,7 @@ async def task(data, lead):
 async def users(lead: str | None = None):
     start = time()
     #return lea
-    output = await task(null, lead)
+    output = await task(data = null, lead)
     print("time: ", time() - start)
     return output
 
