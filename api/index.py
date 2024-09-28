@@ -43,7 +43,7 @@ async def task(request):
 """
 #fn: str, name: str | None = None
 
-@app.get('/api/')
+@app.get('/api')
 async def users():
     start = time()
     return "fn"
