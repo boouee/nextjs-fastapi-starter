@@ -1,4 +1,4 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, Request
 from time import time
 import httpx
 import asyncio
@@ -19,6 +19,9 @@ headers = {
 }
 # main.py
 
+async def get_body(request: Request):
+    return await request.json()
+
 async def get_users(client):
     response = await client.get(url + 'users', headers=headers)
     return response.text
@@ -31,7 +34,7 @@ async def post_lead(client, data):
     response = await client.post(url + 'leads', headers=headers, data=data)
     return response.text
 
-async def task():
+async def task(request):
     async with httpx.AsyncClient() as client:
         tasks = [request(client) for i in range(100)]
         result = await asyncio.gather(*tasks)
@@ -41,20 +44,20 @@ async def task():
 @app.get('/api/users')
 async def f():
     start = time()
-    output = await task()
+    output = await task(get_users)
     print("time: ", time() - start)
     return output
 
 @app.get('/api/check')
 async def f():
     start = time()
-    output = await task()
+    output = await task(check_lead)
     print("time: ", time() - start)
     return output
 
 @app.post('/api')
-async def f():
+async def f(request: Request):
     start = time()
-    output = await task()
+    output = await task(post_lead)
     print("time: ", time() - start)
     return output
