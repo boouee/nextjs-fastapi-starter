@@ -36,7 +36,7 @@ async def post_lead(client, data):
 
 async def task(lead):
     async with httpx.AsyncClient() as client:
-        tasks = [check_lead(client, lead) for i in range(100)] if lead else [get_users(client) for i in range(100)]
+        tasks = [check_lead(client, lead) for i in range(2)] if lead else [get_users(client) for i in range(2)]
         result = await asyncio.gather(*tasks)
         return result
         print(result)
