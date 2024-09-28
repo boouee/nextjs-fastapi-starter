@@ -34,9 +34,9 @@ async def post_lead(client, data):
     response = await client.post(url + 'leads', headers=headers, data=data)
     return response.text
 
-async def task(request):
+async def task(lead):
     async with httpx.AsyncClient() as client:
-        tasks = [request(client) for i in range(100)]
+        tasks = [check_lead(client, lead) for i in range(100)] if lead else [get_users(client) for i in range(100)]
         result = await asyncio.gather(*tasks)
         return result
         print(result)
@@ -46,11 +46,8 @@ async def task(request):
 @app.get('/api')
 async def users(lead: str | None = None):
     start = time()
-    #return lead
-    if lead == null:
-      output = await task(get_users())
-    else:
-      output = await task(check_lead(lead))
+    #return lea
+    output = await task(lead)
     print("time: ", time() - start)
     return output
 
