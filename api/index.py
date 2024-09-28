@@ -27,8 +27,9 @@ async def task():
         result = await asyncio.gather(*tasks)
         print(result)
 
-@app.get('/')
+@app.get('/api')
 async def f():
     start = time()
-    await task()
+    out put = await task()
     print("time: ", time() - start)
+    return output
