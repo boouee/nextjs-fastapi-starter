@@ -42,7 +42,7 @@ async def check_lead(client, name):
     response = await client.get(url + 'leads?filter[name]=' + name, headers=headers)
     if responce:
       return response.json()
-
+    return
 async def post_lead(client, data):
     data = {
        'name': data.name,
