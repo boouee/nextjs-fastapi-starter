@@ -36,11 +36,11 @@ async def get_body(request: Request):
 
 async def get_users(client):
     response = await client.get(url + 'users', headers=headers)
-    return response.text
+    return response.json()
 
 async def check_lead(client, name):
     response = await client.get(url + 'leads?filter[name]=' + name, headers=headers)
-    return response.text
+    return response.json()
 
 async def post_lead(client, data):
     data = {
@@ -54,7 +54,7 @@ async def post_lead(client, data):
     }
     data = "[" + json.dumps(data) + "]"
     response = await client.post(url + 'leads', headers=headers, data=data)
-    return response.text
+    return response.json()
 
 async def task(data, lead):
     async with httpx.AsyncClient() as client:
