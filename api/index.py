@@ -40,6 +40,7 @@ async def get_users(client):
 
 async def check_lead(client, name):
     response = await client.get(url + 'leads?filter[name]=' + name, headers=headers)
+    return json.loads(response)
     if not response:
       return '{}'
     return response.json()
