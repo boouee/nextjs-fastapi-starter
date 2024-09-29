@@ -41,6 +41,7 @@ async def get_users(client):
 async def check_lead(client, name):
     response = await client.get(url + 'leads?filter[name]=' + name, headers=headers)
     #return json.loads(response)
+    return response.status_code
     if not response:
       return json.loads('{"response":"not found"}')
     return response.json()
