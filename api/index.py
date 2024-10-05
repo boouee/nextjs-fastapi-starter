@@ -70,7 +70,7 @@ async def task(data, type, lead):
     async with httpx.AsyncClient() as client:
         if data:
            tasks = [post_lead(client, data) for i in range(1)]
-        elif type:   
+        elif type == 'users':   
            tasks = [get_users(client) for i in range(1)]
         else:
            tasks = [get_leads(client) for i in range(1)]
