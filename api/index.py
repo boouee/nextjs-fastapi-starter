@@ -70,11 +70,11 @@ async def task(data, type, lead):
     async with httpx.AsyncClient() as client:
         if data:
            tasks = [post_lead(client, data) for i in range(1)]
-        else if type == "users":   
+        elif type == "users":   
            tasks = [get_users(client) for i in range(1)]
-        else if type == "leads":
+        elif type == "leads":
            tasks = [get_leads(client) for i in range(1)]
-        else if type == "filter":
+        elif type == "filter":
            tasks = [check_lead(client, lead) for i in range(1)]
         result = await asyncio.gather(*tasks)
         return result
