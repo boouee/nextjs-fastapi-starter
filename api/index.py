@@ -45,6 +45,13 @@ async def check_lead(client, name):
       return response.status_code
     return response.json()
 
+async def get_leads(client):
+    response = await client.get(url + 'leads', headers=headers)
+    #return json.loads(response)   
+    if response.status_code == 204:
+      return response.status_code
+    return response.json()
+
 async def post_lead(client, data):
     data = {
        'name': data.name,
@@ -59,12 +66,16 @@ async def post_lead(client, data):
     response = await client.post(url + 'leads', headers=headers, data=data)
     return response.json()
 
-async def task(data, lead):
+async def task(data, type, lead):
     async with httpx.AsyncClient() as client:
         if data:
            tasks = [post_lead(client, data) for i in range(1)]
-        else:   
-           tasks = [check_lead(client, lead) for i in range(1)] if lead else [get_users(client) for i in range(1)]
+        else if type == "users":   
+           tasks = [get_users(client) for i in range(1)]
+        else if type == "leads":
+           tasks = [get_leads(client) for i in range(1)]
+        else if type == "filter":
+           tasks = [check_lead(client, lead) for i in range(1)]
         result = await asyncio.gather(*tasks)
         return result
         print(result)
@@ -72,16 +83,16 @@ async def task(data, lead):
 #fn: str, name: str | None = None
 
 @app.get('/api')
-async def users(lead: str | None = None):
+async def users(type: str | None = None, lead: str | None = None):
     start = time()
     #return lea
-    output = await task(None, lead)
+    output = await task(None, type, lead)
     print("time: ", time() - start)
     return output
 
 @app.post('/api')
 async def f(lead: Lead):
     start = time()
-    output = await task(lead, None)
+    output = await task(lead, None, None)
     print("time: ", time() - start)
     return output
