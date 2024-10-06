@@ -50,7 +50,7 @@ async def get_leads(client):
     #return json.loads(response)   
     if response.status_code == 204:
       return response.status_code
-    return response.content[0].links
+    return str(json.loads(response.text)[0].links)
 
 async def post_lead(client, data):
     data = {
