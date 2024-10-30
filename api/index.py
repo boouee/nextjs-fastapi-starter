@@ -67,7 +67,7 @@ async def post_lead(client, data):
     response = await client.post(url + 'leads', headers=headers, data=data)
     return response.json()
 
-async def task(data, type, lead, page):
+async def task(data, type, lead):
     async with httpx.AsyncClient() as client:
         if data:
            tasks = [post_lead(client, data) for i in range(1)]
@@ -85,7 +85,7 @@ async def task(data, type, lead, page):
 async def users(type: str | None = None, lead: str | None = None, page: str | None = None):
     start = time()
     #return lea
-    output = await task(None, type, lead, page)
+    output = await task(None, type, lead)
     print("time: ", time() - start)
     return output
 
