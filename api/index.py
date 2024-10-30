@@ -85,7 +85,7 @@ async def task(data, type, lead, page):
 async def users(type: str | None = None, lead: str | None = None, page: str | None = None):
     start = time()
     #return lea
-    output = await task(None, type, lead)
+    output = await task(None, type, lead, page)
     print("time: ", time() - start)
     return output
 
