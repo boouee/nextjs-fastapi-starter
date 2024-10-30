@@ -58,7 +58,8 @@ async def post_lead(client, data):
        'price': data.price,
        'responsible_user_id': data.user_id,
        'pipeline_id': 8412118,
-       'custom_fields_values': [ {'field_id': 838641, 'values': [{'value': data.link}]},{'field_id': 923969, 'values': [{'value': data.price * 0.03}]}, {'field_id': 923963, 'values': [{'value': data.address}]}, {'field_id': 897279, 'values': [{'value': data.phone}]}, {'field_id': 923965, 'values': [{'value': data.seller}]}]
+       #'custom_fields_values': [ {'field_id': 838641, 'values': [{'value': data.link}]},{'field_id': 923969, 'values': [{'value': data.price * 0.03}]}, {'field_id': 923963, 'values': [{'value': data.address}]}, {'field_id': 897279, 'values': [{'value': data.phone}]}, {'field_id': 923965, 'values': [{'value': data.seller}]}]
+       'custom_fields_values': [ {'field_id': 901863, 'values': [{'enum_id': 1637499}]}, {'field_id': 840025, 'values': [{'enum_id': 606855}]}, {'field_id': 838641, 'values': [{'value': data.link}]},{'field_id': 923969, 'values': [{'value': data.price * 0.03}]}, {'field_id': 923963, 'values': [{'value': data.address}]}, {'field_id': 897279, 'values': [{'value': data.phone}]}, {'field_id': 923965, 'values': [{'value': data.seller}]}]
        #'custom_fields_values': [ {'field_id': 838641, 'values': [{'value': data.link | ''}]},{'field_id': 923963, 'values': [{'value': data.address| ''}]},{'field_id': 923967, 'values': [{'value': data.phone| ''}]}, {'field_id': 923965, 'values': [{'value': data.seller| ''}]}, {'field_id': 923969, 'values': [{'value': data.price * 0.03}]}]
 
     }
