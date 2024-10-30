@@ -82,10 +82,10 @@ async def task(data, type, lead, page):
         print(result)
 
 @app.get('/api')
-async def users(type: str | None = None, p: int | None = None, lead: str | None = None):
+async def users(type: str | None = None, page: str | None = None, lead: str | None = None):
     start = time()
     #return lea
-    output = await task(None, type, lead, p)
+    output = await task(None, type, lead, page)
     print("time: ", time() - start)
     return output
 
