@@ -26,7 +26,7 @@ class Lead(BaseModel):
     user_id: int
     address: str | None = None
     price: int
-    phone: int | None = None
+    phone: str | None = None
     link: str
     seller: str | None = None
     #pipeline: int
