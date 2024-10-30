@@ -45,8 +45,8 @@ async def check_lead(client, name):
       return response.status_code
     return response.json()
 
-async def get_leads(client, page):
-    response = await client.get(url + 'leads?page=' + page + '&limit=250', headers=headers)
+async def get_leads(client):
+    response = await client.get(url + 'leads', headers=headers)
     #return json.loads(response)   
     if response.status_code == 204:
       return response.status_code
@@ -74,14 +74,12 @@ async def task(data, type, lead, page):
         elif type == 'users':   
            tasks = [get_users(client) for i in range(1)]
         elif type == 'leads':
-           tasks = [get_leads(client, page) for i in range(1)]
+           tasks = [get_leads(client) for i in range(1)]
         elif type == 'filter':
            tasks = [check_lead(client, lead) for i in range(1)]
         result = await asyncio.gather(*tasks)
         return result
         print(result)
-
-#fn: str, name: str | None = None
 
 @app.get('/api')
 async def users(type: str | None = None, lead: str | None = None, page: str | None = None):
